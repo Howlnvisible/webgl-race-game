@@ -25,6 +25,23 @@ export default function Player() {
         bodyRef.current.setLinvel({ x: 0, y: 0, z: 0 });
         bodyRef.current.setAngvel({ x: 0, y: 0, z: 0 });
     }
+    let phoneRotation = { alpha: 0, beta: 0, gamma: 0 };
+    useEffect(() => {
+        
+    
+        const handleOrientation = (event) => {
+          phoneRotation.alpha = event.alpha;
+          phoneRotation.beta = event.beta;
+          phoneRotation.gamma = event.gamma;
+        };
+    
+        window.addEventListener('deviceorientation', handleOrientation);
+    
+        return () => {
+          window.removeEventListener('deviceorientation', handleOrientation);
+        };
+      }, []);
+    
 
     useEffect(() => {
         const unsubscribeReset = useGame.subscribe(
@@ -93,6 +110,21 @@ export default function Player() {
 
         bodyRef.current.applyImpulse(impulse);
         bodyRef.current.applyTorqueImpulse(torque);
+
+        // Use phone movement controls
+    const phoneImpulse = { x: 0, y: 0, z: 0 };
+    const phoneTorque = { x: 0, y: 0, z: 0 };
+
+    // Adjust the phone movement sensitivity according to your needs
+    const phoneImpulseStrength = 0.1 * delta;
+    const phoneTorqueStrength = 0.1 * delta;
+
+    phoneImpulse.x -= phoneRotation.gamma * phoneImpulseStrength;
+    phoneImpulse.y -= phoneRotation.beta * phoneImpulseStrength;
+    phoneImpulse.z += phoneRotation.alpha * phoneImpulseStrength;
+
+    bodyRef.current.applyImpulse(phoneImpulse);
+    bodyRef.current.applyTorqueImpulse(phoneTorque);
 
         const bodyPosition = bodyRef.current.translation();
         const cameraPosition = new THREE.Vector3();
