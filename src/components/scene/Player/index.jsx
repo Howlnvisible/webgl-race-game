@@ -1,7 +1,8 @@
-import { useKeyboardControls } from "@react-three/drei";
+import { AccumulativeShadows, RandomizedLight, useKeyboardControls, useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { RigidBody, useRapier } from "@react-three/rapier";
-import { useEffect } from "react";
+import { useControls } from "leva";
+import { Suspense, useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import * as THREE from 'three';
@@ -12,36 +13,20 @@ export default function Player() {
     const bodyRef = useRef();
     const { rapier, world } = useRapier();
 
-    const [smoothedCameraPosition] = useState(() => new THREE.Vector3(-10, 10, 10));
+    const [smoothedCameraPosition] = useState(() => new THREE.Vector3(-10, -10, -10));
     const [smoothedCameraTarget] = useState(() => new THREE.Vector3());
 
     const start = useGame((state) => state.start);
     const end = useGame((state) => state.end);
     const blocksCount = useGame((state) => state.blocksCount);
     const restart = useGame((state) => state.restart);
+    const isStarted = useGame((state) => state.isStarted);
 
     const reset = () => {
         bodyRef.current.setTranslation({ x: 0, y: 1, z: 0 });
         bodyRef.current.setLinvel({ x: 0, y: 0, z: 0 });
         bodyRef.current.setAngvel({ x: 0, y: 0, z: 0 });
     }
-    let phoneRotation = { alpha: 0, beta: 0, gamma: 0 };
-    useEffect(() => {
-        
-    
-        const handleOrientation = (event) => {
-          phoneRotation.alpha = event.alpha;
-          phoneRotation.beta = event.beta;
-          phoneRotation.gamma = event.gamma;
-        };
-    
-        window.addEventListener('deviceorientation', handleOrientation);
-    
-        return () => {
-          window.removeEventListener('deviceorientation', handleOrientation);
-        };
-      }, []);
-    
 
     useEffect(() => {
         const unsubscribeReset = useGame.subscribe(
@@ -111,21 +96,6 @@ export default function Player() {
         bodyRef.current.applyImpulse(impulse);
         bodyRef.current.applyTorqueImpulse(torque);
 
-        // Use phone movement controls
-    const phoneImpulse = { x: 0, y: 0, z: 0 };
-    const phoneTorque = { x: 0, y: 0, z: 0 };
-
-    // Adjust the phone movement sensitivity according to your needs
-    const phoneImpulseStrength = 0.1 * delta;
-    const phoneTorqueStrength = 0.1 * delta;
-
-    phoneImpulse.x -= phoneRotation.gamma * phoneImpulseStrength;
-    phoneImpulse.y -= phoneRotation.beta * phoneImpulseStrength;
-    phoneImpulse.z += phoneRotation.alpha * phoneImpulseStrength;
-
-    bodyRef.current.applyImpulse(phoneImpulse);
-    bodyRef.current.applyTorqueImpulse(phoneTorque);
-
         const bodyPosition = bodyRef.current.translation();
         const cameraPosition = new THREE.Vector3();
         cameraPosition.copy(bodyPosition);
@@ -139,8 +109,10 @@ export default function Player() {
         smoothedCameraPosition.lerp(cameraPosition, 5 * delta);
         smoothedCameraTarget.lerp(cameraTarget, 5 * delta);
 
-        state.camera.position.copy(smoothedCameraPosition);
-        state.camera.lookAt(smoothedCameraTarget);
+        if (isStarted) {
+            state.camera.position.copy(smoothedCameraPosition);
+            state.camera.lookAt(smoothedCameraTarget);
+        }
 
         if (bodyPosition.z < - (blocksCount * 4 + 2)) {
             end()
@@ -151,22 +123,43 @@ export default function Player() {
         }
     })
     return (
-        <>
-        <RigidBody 
-            position={[0, 1, 0]}
-            colliders='ball'
-            restitution={0.2}
-            friction={1}
-            canSleep={false}
-            ref={bodyRef}
-            linearDamping={0.5}
-            angularDamping={0.5}
+      <>
+        <Suspense>
+          {!isStarted && (
+            <AccumulativeShadows
+              temporal
+              frames={200}
+              color="purple"
+              colorBlend={0.5}
+              opacity={1}
+              scale={10}
+              alphaTest={0.85}
+            >
+              <RandomizedLight
+                amount={8}
+                radius={5}
+                ambient={0.5}
+                position={[5, 3, 2]}
+                bias={0.001}
+              />
+            </AccumulativeShadows>
+          )}
+        </Suspense>
+        <RigidBody
+          position={[0, 1, 0]}
+          colliders="ball"
+          restitution={0.2}
+          friction={1}
+          canSleep={false}
+          ref={bodyRef}
+          linearDamping={0.5}
+          angularDamping={0.5}
         >
-            <mesh castShadow>
-                <icosahedronGeometry args={[0.3, 1]} />
-                <meshStandardMaterial flatShading color='mediumpurple' />
-            </mesh>
+          <mesh castShadow>
+            <icosahedronGeometry args={[0.3, 3]} />
+            <meshStandardMaterial metalness={1} roughness={1} />
+          </mesh>
         </RigidBody>
-        </>
-    )
+      </>
+    );
 }

@@ -8,9 +8,11 @@ export default function BlockSpinner({
     position = [0, 0, 0],
     boxGeometry,
     material,
-    obstacleMaterial
+    obstacleMaterial,
+    isStarted
 }) {
-    const [speed] = useState(() => (Math.random() + 0.2) * (Math.random() < 0.5 ? -1 : 1))
+    const [speed] = useState(() => (Math.random() + 0.2) * (Math.random() < 0.5 ? -1 : 1));
+    
     const obstacleRef = useRef();
 
     useFrame((state) => {
@@ -21,7 +23,7 @@ export default function BlockSpinner({
 
     })
     return (
-        <group position={position}>
+        <group position={position} visible={isStarted ? true : false}>
             <mesh 
                 geometry={boxGeometry} 
                 material={material}
@@ -41,7 +43,6 @@ export default function BlockSpinner({
             <mesh 
                 geometry={boxGeometry} 
                 material={obstacleMaterial}
-                // position={[0, -0.1, 0]} 
                 scale={[3.5, 0.3, 0.3]}
                 castShadow
                 receiveShadow

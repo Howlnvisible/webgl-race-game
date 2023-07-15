@@ -7,7 +7,8 @@ export default function BlockAxe({
     position = [0, 0, 0],
     boxGeometry,
     material,
-    obstacleMaterial
+    obstacleMaterial,
+    isStarted
 }) {
     const [timeOffset] = useState(() => Math.random() * Math.PI * 2)
     const obstacleRef = useRef();
@@ -23,7 +24,7 @@ export default function BlockAxe({
 
     })
     return (
-        <group position={position}>
+        <group position={position} visible={isStarted ? true : false}>
             <mesh 
                 geometry={boxGeometry} 
                 material={material}
@@ -43,7 +44,6 @@ export default function BlockAxe({
             <mesh 
                 geometry={boxGeometry} 
                 material={obstacleMaterial}
-                // position={[0, -0.1, 0]} 
                 scale={[1.5, 1.5, 0.3]}
                 castShadow
                 receiveShadow

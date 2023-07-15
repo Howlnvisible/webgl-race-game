@@ -3,15 +3,17 @@ import { CuboidCollider, RigidBody } from "@react-three/rapier";
 export default function Bounds({
     bounds = 1,
     geometry,
-    material
+    material,
+    isStarted
 }) {
     return (
-        <>
+        <group visible={isStarted ? true : false}>
         <RigidBody 
             type='fixed'
             restitution={0.2}
             friction={0}
         >
+        
         <mesh
             material={material}
             geometry={geometry}
@@ -33,6 +35,7 @@ export default function Bounds({
             scale={[4, 1.5, 0.3]}
             receiveShadow
         />
+        
         <CuboidCollider
             args={[2, 0.1, 2 * bounds]}
             position={[0, - 0.1, - (bounds * 2) + 2]}
@@ -40,6 +43,6 @@ export default function Bounds({
             friction={1} 
         />
         </RigidBody>
-        </>
+        </group>
     )
 }

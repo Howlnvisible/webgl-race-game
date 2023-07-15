@@ -16,6 +16,11 @@
         align-items: center;
         justify-content: center;
         gap: 1.5rem;
+        transition: opacity 3s;
+        opacity: 0;
+        &.visible {
+            opacity: 1;
+        }
         .element {
             color: #ffffff;
             font-size: 3vh;
@@ -41,6 +46,36 @@
         .button {
             pointer-events: auto;
             cursor: pointer;
+        }
+    }
+    .rules {
+        position: absolute;
+        top: 15%;
+        left: 10%;
+        background: #aebfd58c;
+        color: white;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        // transform: rotateY(25deg);
+        pointer-events: auto;
+        max-width: 20rem;
+        line-height: 1.2rem;
+        opacity: 1;
+        transition: 3s;
+        &.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .startButton {
+            // filter: drop-shadow(0 4px 4px #0e69e1d5);
+            box-shadow: 0px 0px 5px rgba(127, 144, 195, 0.824);
+            border: 1px solid rgba(127, 144, 195, 0.824);
+            width: fit-content;
+            border-radius: 0.5rem;
+            padding: 0.4rem;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
         }
     }
 }

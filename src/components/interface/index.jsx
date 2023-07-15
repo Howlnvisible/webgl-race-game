@@ -7,14 +7,19 @@ import styles from './Interface.module.scss';
 
 export default function Interface() {
     const restart = useGame((state) => state.restart);
-    const phase = useGame((state) => state.phase);
     const updateBlocksCount = useGame((state) => state.updateBlocksCount);
+    const isStarted = useGame((state) => state.isStarted);
+    const startGame = useGame((state) => state.startGame);
     const [amoutOfTraps, setAmountOfTraps] = useState();
 
     const timeRef = useRef();
 
     const handleAmountOfTraps = () => {
         updateBlocksCount(amoutOfTraps)
+    }
+
+    const handleStartGame = () => {
+        startGame()
     }
 
     useEffect(() => {
@@ -41,7 +46,7 @@ export default function Interface() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.timeContainer}>
+            <div className={`${styles.timeContainer} ${isStarted ? styles.visible : ''}`}>
                 <div 
                     className={styles.element}
                     ref={timeRef}
@@ -65,6 +70,15 @@ export default function Interface() {
                 >
                     Save
                 </button> */}
+            </div>
+            <div className={`${styles.rules} ${isStarted ? styles.hidden : ''}`}>
+                    Welcome to the race.<br />
+                    Use your keys to controll the ball and spacebar for the jump.<br />
+                    Be fast and be furious.<br />
+                    Share your score with friends!
+                <div className={styles.startButton} onClick={handleStartGame}>
+                    Start
+                </div>
             </div>
         </div>
     )

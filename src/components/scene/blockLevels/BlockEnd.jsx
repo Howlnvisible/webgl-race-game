@@ -1,20 +1,43 @@
-import { useGLTF, useTexture } from "@react-three/drei"
+import { shaderMaterial, useGLTF, useTexture } from "@react-three/drei"
 import { RigidBody } from "@react-three/rapier";
+import * as THREE from 'three';
+import portalVertexShader from '../../../shaders/portal/vertex.glsl'
+import portalFragmentShader from '../../../shaders/portal/fragment.glsl'
+import { extend, useFrame } from "@react-three/fiber";
+import { useRef } from "react";
+
+const PortalMaterial = shaderMaterial(
+  {
+    uTime: 0,
+    uColorStart: new THREE.Color("#ffffff"),
+    uColorEnd: new THREE.Color("#000000"),
+  },
+  portalVertexShader,
+  portalFragmentShader
+);
+
+extend({ PortalMaterial })
 
 export default function BlockEnd({
     position = [0, 0, 0],
     boxGeometry,
-    material
+    material,
+    isStarted
 }) {
+    const portalMaterialRef = useRef()
     const { nodes } = useGLTF('./model/portal.glb');
-    const hamburger = useGLTF('./hamburger.glb');
+    // const hamburger = useGLTF('./hamburger.glb');
     const bakedMaterial = useTexture('./model/baked.jpg');
     bakedMaterial.flipY = false;
-    hamburger.scene.children.forEach((mesh) => {
-        mesh.castShadow = true;
+    // hamburger.scene.children.forEach((mesh) => {
+    //     mesh.castShadow = true;
+    // })
+
+    useFrame((state, delta) => {
+        portalMaterialRef.current.uTime += delta * 2.5;
     })
     return (
-        <group position={position}>
+        <group position={position} visible={isStarted ? true : false}>
             <mesh 
                 geometry={boxGeometry} 
                 material={material}
@@ -23,14 +46,6 @@ export default function BlockEnd({
                 receiveShadow
             >
             </mesh>
-            {/* <RigidBody 
-                type='fixed'
-                colliders='hull'
-                restitution={0.2}
-                friction={0} 
-            >
-                <primitive object={hamburger.scene} scale={0.2} />
-            </RigidBody> */}
             <mesh geometry={nodes.baked.geometry}>
                 <meshBasicMaterial map={bakedMaterial} toneMapped={false} />
             </mesh>
@@ -53,6 +68,7 @@ export default function BlockEnd({
                 position={nodes.portalLight.position}
                 rotation={nodes.portalLight.rotation}
             >
+                <portalMaterial ref={portalMaterialRef} />
             </mesh>
         </group>
     )

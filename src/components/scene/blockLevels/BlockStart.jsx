@@ -4,7 +4,8 @@ import { useThree } from "@react-three/fiber";
 export default function BlockStart({
     position = [0, 0, 0],
     boxGeometry,
-    material
+    material,
+    isStarted
 }) {
     const { size } = useThree();
 
@@ -22,15 +23,15 @@ export default function BlockStart({
     const calculateFontPosition = () => {
         const screenWidth = size.width;
         const screenHeight = size.height;
-        console.log(screenWidth, screenHeight);
+        // console.log(screenWidth, screenHeight);
 
         const position = Math.min(screenWidth, screenHeight) * 0.0005;
-        console.log(position);
+        // console.log(position);
         return position
 
     };
     return (
-        <group position={position}>
+        <group position={position} visible={isStarted ? true : false}>
             <Float floatIntensity={0.25} rotationIntensity={0.25}>
                 <Text
                     font='./bebas-neue-v9-latin-regular.woff' 

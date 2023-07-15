@@ -8,6 +8,7 @@ export default create(subscribeWithSelector((set) => {
         blockSeed: 0,
         blocksCount: 20,
         phase: 'ready',
+        isStarted: false,
         start: () => {
             set((state) => {
                 if (state.phase === 'ready') 
@@ -44,6 +45,13 @@ export default create(subscribeWithSelector((set) => {
             set(() => {
                 return {
                     blocksCount: updatedAmount
+                }
+            })
+        },
+        startGame: () => {
+            set(() => {
+                return {
+                    isStarted: true
                 }
             })
         }
