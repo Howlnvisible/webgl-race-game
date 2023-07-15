@@ -14,7 +14,7 @@ export default function Bounds({
             friction={0}
         >
         
-        <mesh
+        {/* <mesh
             material={material}
             geometry={geometry}
             position={[2.15, 0.75, - (bounds * 2) + 2]}
@@ -34,7 +34,7 @@ export default function Bounds({
             position={[0, 0.75, - (bounds * 4) + 2]}
             scale={[4, 1.5, 0.3]}
             receiveShadow
-        />
+        /> */}
         
         <CuboidCollider
             args={[2, 0.1, 2 * bounds]}

@@ -45,6 +45,12 @@ export default function App() {
                     'Space',
                 ]
             },
+            // {
+            //     name: 'reload',
+            //     keys: [
+            //         'KeyR'
+            //     ]
+            // }
         ]}
     >
     <Canvas

@@ -16,8 +16,19 @@ export default function Experience() {
       <>
         <color args={['#000000']} attach='background' />
         {/* <Perf position='top-left' /> */}
-        <OrbitControls autoRotate autoRotateSpeed={4} enablePan={false} enableZoom={false} minPolarAngle={Math.PI / 2.1} maxPolarAngle={Math.PI / 2.1} />
-        <Environment preset='sunset' background blur={0.65} />
+        <OrbitControls 
+          autoRotate 
+          autoRotateSpeed={4} 
+          enablePan={false} 
+          enableZoom={false} 
+          minPolarAngle={Math.PI / 2.1} 
+          maxPolarAngle={Math.PI / 2.1} 
+        />
+        <Environment 
+          preset='sunset' 
+          background 
+          blur={0.65} 
+        />
 
         <Physics debug={false}>
           <Lights />

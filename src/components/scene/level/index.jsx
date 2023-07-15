@@ -9,6 +9,7 @@ import Bounds from "../blockLevels/Bounds";
 import CityBg from "../background/City";
 import BlackSun from "../background/BlackSun";
 import useGame from "../../../stores/useGame";
+import NameInput from "../nameInput";
 
 THREE.ColorManagement.legacyMode = false;
 
@@ -66,6 +67,10 @@ export default function Level({
         bounds={levelCount + 2}
         isStarted={isStarted}
       />
+      {/* <NameInput
+        scale={2} 
+        position={[0.4, 0.25, -1]} 
+      /> */}
 
       {/* <CityBg
         geometry={cityGeometry}

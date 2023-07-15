@@ -19,10 +19,10 @@ export default function BlackSun({
   const blackSunGeometry = new THREE.CircleGeometry(0.8, 64)
   return (
     <>
-      <Effects disableGamma>
+      {/* <Effects disableGamma>
         <unrealBloomPass threshold={1} strength={0.66} radius={0.58} />
-        {/* <outputPass args={[THREE.ACESFilmicToneMapping]} /> */}
-      </Effects>
+        <outputPass args={[THREE.ACESFilmicToneMapping]} />
+      </Effects> */}
 
       <mesh
             geometry={blackSunGeometry}

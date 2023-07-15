@@ -56,7 +56,6 @@
         color: white;
         border-radius: 0.5rem;
         padding: 1rem;
-        // transform: rotateY(25deg);
         pointer-events: auto;
         max-width: 20rem;
         line-height: 1.2rem;
@@ -66,16 +65,88 @@
             opacity: 0;
             pointer-events: none;
         }
+        // .startButton {
+        //     // filter: drop-shadow(0 4px 4px #0e69e1d5);
+        //     box-shadow: 0px 0px 5px rgba(127, 144, 195, 0.824);
+        //     border: 1px solid rgba(127, 144, 195, 0.824);
+        //     width: fit-content;
+        //     border-radius: 0.5rem;
+        //     padding: 0.4rem;
+        //     cursor: pointer;
+        //     text-align: center;
+        //     margin-top: 1rem;
+        // }
+    }
+    .scoreboardContainer {
+        position: absolute;
+        top: 15%;
+        right: 10%;
+        width: 640px;
+        background: #aebfd58c;
+        color: white;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        pointer-events: auto;
+        max-width: 20rem;
+        line-height: 1.2rem;
+        opacity: 1;
+        transition: 3s;
+        &.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .header {
+            width: 100%;
+            text-align: center;
+        }
+        .userContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+    .enterName {
+        position: absolute;
+        bottom: 50%;
+        left: 10%;
+        width: 100%;
+        background: #aebfd58c;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        pointer-events: auto;
+        max-width: 20rem;
+        line-height: 1.2rem;
+        opacity: 1;
+        transition: 3s;
+        &.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .header {
+            width: 20rem;
+            color: white;
+            border: 1px solid rgba(127, 144, 195, 0.824);
+            border-radius: 0.5rem;
+            padding: 0.2rem;
+        }
         .startButton {
             // filter: drop-shadow(0 4px 4px #0e69e1d5);
-            box-shadow: 0px 0px 5px rgba(127, 144, 195, 0.824);
+            // box-shadow: 0px 0px 5px rgba(127, 144, 195, 0.824);
             border: 1px solid rgba(127, 144, 195, 0.824);
+            color: white;
+            font-size: 0.8rem;
             width: fit-content;
             border-radius: 0.5rem;
-            padding: 0.4rem;
+            padding: 0.2rem;
             cursor: pointer;
-            text-align: center;
-            margin-top: 1rem;
+            // text-align: center;
+            margin-top: 0.2rem;
+            opacity: 1;
+            transition: 1s;
+            &.disabled {
+                opacity: 0;
+                pointer-events: none;
+            }
         }
     }
 }

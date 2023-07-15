@@ -13,7 +13,7 @@ export default function Player() {
     const bodyRef = useRef();
     const { rapier, world } = useRapier();
 
-    const [smoothedCameraPosition] = useState(() => new THREE.Vector3(-10, -10, -10));
+    const [smoothedCameraPosition] = useState(() => new THREE.Vector3(-10, 10, 10));
     const [smoothedCameraTarget] = useState(() => new THREE.Vector3());
 
     const start = useGame((state) => state.start);
@@ -54,6 +54,13 @@ export default function Player() {
             }
         )
 
+        // const unsubscribeReload = subscribeKeys(
+        //   (state) => state.reload,
+        //   (value) => {
+        //     restart()
+        //   }
+        // )
+
         const unsubscribeAnyKey = subscribeKeys(
             () => start()
         )
@@ -61,10 +68,14 @@ export default function Player() {
             unsubscribe()
             unsubscribeAnyKey()
             unsubscribeReset()
+            // unsubscribeReload()
         } 
     }, [])
 
     useFrame((state, delta) => {
+      if (isStarted) {
+
+      
         const { forward, backward, leftward, rightward } = getKeys();
 
         const impulse = { x: 0, y: 0, z: 0 };
@@ -109,10 +120,10 @@ export default function Player() {
         smoothedCameraPosition.lerp(cameraPosition, 5 * delta);
         smoothedCameraTarget.lerp(cameraTarget, 5 * delta);
 
-        if (isStarted) {
+        // if (isStarted) {
             state.camera.position.copy(smoothedCameraPosition);
             state.camera.lookAt(smoothedCameraTarget);
-        }
+        // }
 
         if (bodyPosition.z < - (blocksCount * 4 + 2)) {
             end()
@@ -121,6 +132,7 @@ export default function Player() {
         if (bodyPosition.y < -4) {
             restart()
         }
+      }
     })
     return (
       <>
