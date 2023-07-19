@@ -60,9 +60,10 @@ export default function Player() {
         //     restart()
         //   }
         // )
+        
 
         const unsubscribeAnyKey = subscribeKeys(
-            () => start()
+          () => start()
         )
         return () => {
             unsubscribe()
@@ -74,10 +75,7 @@ export default function Player() {
 
     useFrame((state, delta) => {
       if (isStarted) {
-
-      
         const { forward, backward, leftward, rightward } = getKeys();
-
         const impulse = { x: 0, y: 0, z: 0 };
         const torque = { x: 0, y: 0, z: 0 };
 
@@ -120,16 +118,16 @@ export default function Player() {
         smoothedCameraPosition.lerp(cameraPosition, 5 * delta);
         smoothedCameraTarget.lerp(cameraTarget, 5 * delta);
 
-        // if (isStarted) {
+        if (isStarted) {
             state.camera.position.copy(smoothedCameraPosition);
             state.camera.lookAt(smoothedCameraTarget);
-        // }
+        }
 
         if (bodyPosition.z < - (blocksCount * 4 + 2)) {
             end()
         }
 
-        if (bodyPosition.y < -4) {
+        if (bodyPosition.y < -4 && !forward) {
             restart()
         }
       }
