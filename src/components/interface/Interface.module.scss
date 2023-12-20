@@ -1,152 +1,158 @@
 .container {
-    position: fixed;
-    top: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  font-family: "Inter", cursive;
+  .timeContainer {
+    position: absolute;
+    bottom: 5%;
     left: 0;
     width: 100%;
-    height: 100%;
-    pointer-events: none;
-    font-family: 'Inter', cursive;
-    .timeContainer {
-        position: absolute;
-        bottom: 5%;
-        left: 0;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 1.5rem;
-        transition: opacity 3s;
-        opacity: 0;
-        &.visible {
-            opacity: 1;
-        }
-        .element {
-            color: #ffffff;
-            font-size: 3vh;
-            background: #00000033;
-            padding: 1rem;
-            border-radius: 1rem;
-            pointer-events: auto;
-            cursor: pointer;
-        }
-        .input {
-            padding: 1rem;
-            background: #00000033;
-            color: white;
-            pointer-events: auto;
-            border: 1px solid #00000033;
-            border-radius: 1rem;
-            margin-left: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    transition: opacity 3s;
+    opacity: 0;
+    &.visible {
+      opacity: 1;
+    }
+    .element {
+      color: #ffffff;
+      font-size: 3vh;
+      background: #00000033;
+      padding: 1rem;
+      border-radius: 1rem;
+      pointer-events: auto;
+      cursor: pointer;
+    }
 
-            &::placeholder {
-                color: white;
-            }
-        }
-        .button {
-            pointer-events: auto;
-            cursor: pointer;
-        }
+    .button {
+      pointer-events: auto;
+      cursor: pointer;
     }
-    .rules {
-        position: absolute;
-        top: 15%;
-        left: 10%;
-        background: #aebfd58c;
+  }
+  .rules {
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    background: #aebfd58c;
+    color: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    pointer-events: auto;
+    max-width: 20rem;
+    line-height: 1.2rem;
+    opacity: 1;
+    transition: 3s;
+    &.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    // .startButton {
+    //     // filter: drop-shadow(0 4px 4px #0e69e1d5);
+    //     box-shadow: 0px 0px 5px rgba(127, 144, 195, 0.824);
+    //     border: 1px solid rgba(127, 144, 195, 0.824);
+    //     width: fit-content;
+    //     border-radius: 0.5rem;
+    //     padding: 0.4rem;
+    //     cursor: pointer;
+    //     text-align: center;
+    //     margin-top: 1rem;
+    // }
+  }
+  .scoreboardContainer {
+    position: absolute;
+    top: 15%;
+    right: 10%;
+    width: 640px;
+    background: #aebfd58c;
+    color: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    pointer-events: auto;
+    max-width: 20rem;
+    line-height: 1.2rem;
+    opacity: 1;
+    transition: 3s;
+    &.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .header {
+      width: 100%;
+      text-align: center;
+    }
+    .offlineDashboard {
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+    .userContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .enterName {
+    position: absolute;
+    bottom: 50%;
+    left: 10%;
+    width: 100%;
+    background: #aebfd58c;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    pointer-events: auto;
+    max-width: 20rem;
+    line-height: 1.2rem;
+    opacity: 1;
+    transition: 3s;
+    &.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .header {
+      width: 20rem;
+      color: white;
+      border: 1px solid rgba(127, 144, 195, 0.824);
+      border-radius: 0.5rem;
+      padding: 0.2rem;
+    }
+    .startButton {
+      // filter: drop-shadow(0 4px 4px #0e69e1d5);
+      // box-shadow: 0px 0px 5px rgba(127, 144, 195, 0.824);
+      border: 1px solid rgba(127, 144, 195, 0.824);
+      color: white;
+      font-size: 0.8rem;
+      width: fit-content;
+      border-radius: 0.5rem;
+      padding: 0.2rem;
+      cursor: pointer;
+      // text-align: center;
+      margin-top: 0.2rem;
+      opacity: 1;
+      transition: 1s;
+      &.disabled {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    .input {
+      padding: 1rem;
+      background: #00000033;
+      color: white;
+      pointer-events: auto;
+      border: 1px solid #00000033;
+      border-radius: 1rem;
+      margin-left: 2rem;
+
+      &::placeholder {
         color: white;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        pointer-events: auto;
-        max-width: 20rem;
-        line-height: 1.2rem;
-        opacity: 1;
-        transition: 3s;
-        &.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        // .startButton {
-        //     // filter: drop-shadow(0 4px 4px #0e69e1d5);
-        //     box-shadow: 0px 0px 5px rgba(127, 144, 195, 0.824);
-        //     border: 1px solid rgba(127, 144, 195, 0.824);
-        //     width: fit-content;
-        //     border-radius: 0.5rem;
-        //     padding: 0.4rem;
-        //     cursor: pointer;
-        //     text-align: center;
-        //     margin-top: 1rem;
-        // }
+      }
     }
-    .scoreboardContainer {
-        position: absolute;
-        top: 15%;
-        right: 10%;
-        width: 640px;
-        background: #aebfd58c;
-        color: white;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        pointer-events: auto;
-        max-width: 20rem;
-        line-height: 1.2rem;
-        opacity: 1;
-        transition: 3s;
-        &.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        .header {
-            width: 100%;
-            text-align: center;
-        }
-        .userContainer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-    }
-    .enterName {
-        position: absolute;
-        bottom: 50%;
-        left: 10%;
-        width: 100%;
-        background: #aebfd58c;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        pointer-events: auto;
-        max-width: 20rem;
-        line-height: 1.2rem;
-        opacity: 1;
-        transition: 3s;
-        &.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        .header {
-            width: 20rem;
-            color: white;
-            border: 1px solid rgba(127, 144, 195, 0.824);
-            border-radius: 0.5rem;
-            padding: 0.2rem;
-        }
-        .startButton {
-            // filter: drop-shadow(0 4px 4px #0e69e1d5);
-            // box-shadow: 0px 0px 5px rgba(127, 144, 195, 0.824);
-            border: 1px solid rgba(127, 144, 195, 0.824);
-            color: white;
-            font-size: 0.8rem;
-            width: fit-content;
-            border-radius: 0.5rem;
-            padding: 0.2rem;
-            cursor: pointer;
-            // text-align: center;
-            margin-top: 0.2rem;
-            opacity: 1;
-            transition: 1s;
-            &.disabled {
-                opacity: 0;
-                pointer-events: none;
-            }
-        }
-    }
+  }
 }

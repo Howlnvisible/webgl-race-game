@@ -1,14 +1,4 @@
-import {
-  useGLTF,
-  AccumulativeShadows,
-  RandomizedLight,
-  Html,
-  Text,
-  Effects,
-  Environment,
-  Center,
-  MeshTransmissionMaterial,
-} from "@react-three/drei";
+import { Html, Text } from "@react-three/drei";
 import { useState } from "react";
 import { ControlledInput } from "../../helpers/ControlledInput";
 
